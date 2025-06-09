@@ -1,5 +1,5 @@
-import { Logo } from "./Logo";
-import { ThemeSwitcher } from "./ThemeSwitcher";
+import { Logo } from "../common/Logo";
+import { ThemeSwitcher } from "../ThemeSwitcher";
 
 export const Header = () => {
   return (
