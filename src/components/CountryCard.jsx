@@ -1,12 +1,9 @@
+import { Link } from "react-router-dom";
+
 export const CountryCard = (props) => {
   const { name, population, region, capital, flags, languages } = props;
   return (
-    // Linke to wiki page of the country
-    <a
-      href={`https://en.wikipedia.org/wiki/${name}`}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <Link to={`${name}`}>
       <div className="h-full rounded bg-gray-50 p-3 pb-9 shadow-md lg:w-[264px] dark:bg-gray-800">
         <img
           className="mb-4 h-40 w-full rounded-md"
@@ -18,7 +15,7 @@ export const CountryCard = (props) => {
         <div className="ml-3 flex flex-col gap-2">
           <p>
             <span className="font-semibold">Population: </span>
-            <span className="font-light">{population}</span>
+            <span className="font-light">{parseInt(population).toLocaleString()}</span>
           </p>
           <p>
             <span className="font-semibold">Region: </span>
@@ -36,6 +33,6 @@ export const CountryCard = (props) => {
           </p>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };

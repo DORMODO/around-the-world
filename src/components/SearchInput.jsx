@@ -1,6 +1,20 @@
-export const SearchInput = () => {
+export const SearchInput = ({ countriesList, filterCountriesList }) => {
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const searchTerm = e.target.search.value.trim();
+    const filteredList =
+      !searchTerm || searchTerm === ""
+        ? countriesList
+        : countriesList.filter((country) =>
+            country.name.common
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase()),
+          );
+    filterCountriesList(filteredList);
+  };
+
   return (
-    <form className="relative flex-1">
+    <form className="relative flex-1" onSubmit={handleSearch}>
       <div className="absolute top-5 left-8">
         <svg
           width="18"

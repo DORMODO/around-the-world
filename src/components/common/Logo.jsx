@@ -1,10 +1,10 @@
+import { Link } from "react-router-dom";
+
 export const Logo = () => {
   return (
-    <a
+    <Link
+      to={"/"}
       className="flex items-center gap-3 font-semibold text-[#111827]"
-      href="http://"
-      target="_blank"
-      rel="noopener noreferrer"
     >
       <svg
         width="24"
@@ -44,6 +44,6 @@ export const Logo = () => {
         />
       </svg>
       <span className="text-2xl dark:text-[#F3F4F6]">Around the world</span>
-    </a>
+    </Link>
   );
 };

@@ -1,17 +1,34 @@
+import { useState } from "react";
 import Select from "react-select";
 
 const options = [
+  { value: "all regions", label: "All Regions" },
   { value: "africa", label: "Africa" },
-  { value: "americas", label: "Americas" },
   { value: "asia", label: "Asia" },
   { value: "europe", label: "Europe" },
+  { value: "americas", label: "Americas" },
+  { value: "antarctic", label: "Antarctic" },
   { value: "oceania", label: "Oceania" },
 ];
 
-export const RegionMenu = () => {
+export const RegionMenu = ({ countriesList, filterCountriesList }) => {
+  const handleRegionChange = (selectedOption) => {
+    const region = selectedOption.label;
+
+    const filteredList =
+      region === "All Regions"
+        ? countriesList
+        : countriesList.filter(
+            (country) => country.region === region
+          );
+
+    filterCountriesList(filteredList);
+  };
+
   return (
     <Select
-      placeholder="Filter by Region"
+      defaultValue={options[0]}
+      onChange={handleRegionChange}
       classNames={{
         input: () => "!text-gray-800 dark:!text-gray-100",
         singleValue: () => "!text-gray-800 dark:!text-gray-100",
