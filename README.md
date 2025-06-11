@@ -65,7 +65,7 @@ src/
 
 ## Deployment 🌐
 
-The project is ready to be deployed on platforms like Vercel, Netlify, or GitHub Pages.
+The project is ready to be deployed on platform like Vercel.
 
 ## Contributing 🤝
 
