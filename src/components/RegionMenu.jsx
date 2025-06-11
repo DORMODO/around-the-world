@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Select from "react-select";
 
 const options = [
@@ -18,9 +17,7 @@ export const RegionMenu = ({ countriesList, filterCountriesList }) => {
     const filteredList =
       region === "All Regions"
         ? countriesList
-        : countriesList.filter(
-            (country) => country.region === region
-          );
+        : countriesList.filter((country) => country.region === region);
 
     filterCountriesList(filteredList);
   };
