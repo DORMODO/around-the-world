@@ -15,7 +15,7 @@ export const SearchInput = ({ countriesList, filterCountriesList }) => {
 
   return (
     <form className="relative flex-1" onSubmit={handleSearch}>
-      <div className="absolute top-5 left-8">
+      <div className="absolute top-4 sm:top-5  left-8">
         <svg
           width="18"
           height="18"

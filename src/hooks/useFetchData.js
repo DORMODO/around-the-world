@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import { ALL_COUNTRIES_URL, COUNTRY_DETAIL_URL } from "../constants/api";
 
 export const useFetchData = (country) => {
   const [result, setResult] = useState([]);
-  const [filteredCountriesList, setFilteredCountriesList] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  const [isError, setError] = useState(null);
+  const [isError, setError] = useState(false);
 
   useEffect(() => {
     if (country) {
@@ -14,56 +15,34 @@ export const useFetchData = (country) => {
     }
   }, [country]);
 
-  const fetchDataFromAPI = () => {
-    const fields = [
-      "name",
-      "population",
-      "region",
-      "capital",
-      "flags",
-      "languages",
-      "currencies",
-      "tld",
-      "borders",
-      "subregion",
-      "area",
-      "timezones",
-      "continents",
-      "translations",
-      "demonyms",
-      "flag",
-      "maps",
-    ];
+  const fetchDataFromAPI = async () => {
+    try {
+      setLoading(true);
+      let url = country ? COUNTRY_DETAIL_URL(country) : ALL_COUNTRIES_URL;
 
-    const url = country
-      ? `https://restcountries.com/v3.1/name/${country}?fields=${fields.join(",")}`
-      : "https://restcountries.com/v3.1/all?fields=name,population,region,capital,flags,languages";
+      const response = await fetch(url);
+      const data = await response.json();
 
-    setLoading(true);
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        if (country) {
-          // Country page
-          setResult(data[0]);
-        } else {
-          // Home page
-          setResult(data);
-          setFilteredCountriesList(data);
-          localStorage.setItem("countries", JSON.stringify(data));
-        }
-      })
-      .catch((error) => setError(error))
-      .finally(() => setLoading(false));
+      if (country) {
+        setResult(data[0]);
+      } else {
+        setResult(data);
+        setFilteredCountries(data);
+        localStorage.setItem("countries", JSON.stringify(data));
+      }
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const fetchDataFromLocalStorage = () => {
-    const localData = JSON.parse(localStorage.getItem("countries"));
+    const data = JSON.parse(localStorage.getItem("countries"));
 
-    if (localData) {
-      setResult(localData);
-      setFilteredCountriesList(localData);
+    if (data) {
+      setResult(data);
+      setFilteredCountries(data);
     } else {
       fetchDataFromAPI();
     }
@@ -71,9 +50,9 @@ export const useFetchData = (country) => {
 
   return {
     result,
-    filteredCountriesList,
-    setFilteredCountriesList,
     isLoading,
     isError,
+    filteredCountries,
+    setFilteredCountries,
   };
 };
